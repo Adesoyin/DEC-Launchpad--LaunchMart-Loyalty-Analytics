@@ -70,7 +70,7 @@ __**1. Count the total number of customers who joined in 2023.**__
     FROM customers
     WHERE EXTRACT(YEAR FROM customers.join_date) = 2023
 
-  ![alt text](images/Customers%20that%20joined%20in%202023.png)
+![alt text](Images/Customers%20that%20joined%20in%202023.png)
 
 __**2. For each customer return customer_id, full_name, total_revenue (sum of total_amount from orders). Sort descending.**__
 
@@ -84,5 +84,5 @@ __**2. For each customer return customer_id, full_name, total_revenue (sum of to
     GROUP BY c.customer_id, c.full_name
     ORDER BY total_revenue desc
 
-  ![alt text](images/Total%20revenue%20by%20customers.png)
+![alt text](Images/Total%20revenue%20by%20customers.png)
 
