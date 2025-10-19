@@ -89,7 +89,7 @@ __**2. For each customer return customer_id, full_name, total_revenue (sum of to
 ![alt text](Images/Total%20revenue%20by%20customers.png)
 
 
-__**2. Return the top 5 customers by total_revenue with their rank.**__
+__**3. Return the top 5 customers by total_revenue with their rank.**__
 
     --Return the top 5 customers by total_revenue with their rank.
 
@@ -106,3 +106,21 @@ __**2. Return the top 5 customers by total_revenue with their rank.**__
     LIMIT 5
 
 ![alt text](Images/Customer%20Rank.png)
+
+__**4. Produce a table with year, month, monthly_revenue for all months in 2023 ordered chronologically.**__
+
+    --Produce a table with year, month, monthly_revenue for all months in 2023 ordered chronologically.
+    WITH CTE AS (
+          SELECT EXTRACT(YEAR FROM order_date) AS Order_Year, 
+              TO_CHAR(order_date, 'Month') AS Order_Month,
+              EXTRACT(Month FROM order_date) AS month_number,
+              SUM(total_amount) AS Monthly_revenue
+          FROM orders
+          WHERE EXTRACT(YEAR FROM order_date) = 2023
+          GROUP BY Order_Year, Order_Month, month_number
+          )
+    SELECT order_year, order_month, monthly_revenue
+    FROM CTE
+    ORDER BY order_year,month_number
+
+![alt text](images/Monthly%20Revenue.png)
