@@ -2,11 +2,11 @@
 This project analyzes customer behavior, revenue performance, and loyalty engagement of LaunchMart e-commerce company that recently launched a loyalty program to increase customer retention. Customers earn points when they place orders and extra bonus points during promotions. 
 
 ## Project Purpose
-1. To craete a datbase tables and insert the sample datasets into each table.
+1. To create a database tables and insert the sample datasets into each table.
 2. To explore the company's customer, orders, and loyalty program data to help the marketing and operations teams make informed decisions.
 
 **Creating Tables**
-The following database tables were created using DDL command in Postgres PGAdmin
+The following database tables were created using DDL command in Postgres PGAdmin4
 
 - [*] customers,
 - [*] products,
@@ -70,6 +70,7 @@ __**1. Count the total number of customers who joined in 2023.**__
     FROM customers
     WHERE EXTRACT(YEAR FROM customers.join_date) = 2023
 
+
 ![alt text](Images/Customers%20that%20joined%20in%202023.png)
 
 __**2. For each customer return customer_id, full_name, total_revenue (sum of total_amount from orders). Sort descending.**__
@@ -84,5 +85,24 @@ __**2. For each customer return customer_id, full_name, total_revenue (sum of to
     GROUP BY c.customer_id, c.full_name
     ORDER BY total_revenue desc
 
+
 ![alt text](Images/Total%20revenue%20by%20customers.png)
 
+
+__**2. Return the top 5 customers by total_revenue with their rank.**__
+
+    --Return the top 5 customers by total_revenue with their rank.
+
+    WITH CTE AS (
+          SELECT c.customer_id, c.full_name, SUM(o.total_amount) total_revenue, 
+          RANK() OVER (order by SUM(o.total_amount) DESC) AS Rank
+          FROM customers AS c
+          LEFT JOIN orders AS o
+          ON c.customer_id = o.customer_id
+          GROUP BY c.customer_id, c.full_name
+          )
+    SELECT * 
+    FROM CTE
+    LIMIT 5
+
+![alt text](Images/Customer%20Rank.png)
