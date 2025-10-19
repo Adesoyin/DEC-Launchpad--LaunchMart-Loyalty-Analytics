@@ -1,30 +1,24 @@
 # DEC-Launchpad--LaunchMart-Loyalty-Analytics
 This project analyzes customer behavior, revenue performance, and loyalty engagement of LaunchMart e-commerce company that recently launched a loyalty program to increase customer retention. Customers earn points when they place orders and extra bonus points during promotions. 
 
-**Project Purpose**
+## Project Purpose
 1. To craete a datbase tables and insert the sample datasets into each table.
 2. To explore the company's customer, orders, and loyalty program data to help the marketing and operations teams make informed decisions.
 
-**Tables**
-1.  customers,
-2.  products,
-3.  orders,
-4.  order items, and
-5.  loyalty points
-
 **Creating Tables**
-The DDL command was used in creating the database tables in postgres. 
+The following database tables were created using DDL command in Postgres PGAdmin
+
+- [*] customers,
+- [*] products,
+- [*] orders,
+- [*] order items, and
+- [*] loyalty points
 
     CREATE TABLE customers (
-
     customer_id SERIAL PRIMARY KEY,
-
     full_name VARCHAR(50) NOT NULL,
-
     email VARCHAR(50) UNIQUE,
-
     join_date DATE NOT NULL
-
     );
   
     CREATE TABLE products (
@@ -59,4 +53,34 @@ The DDL command was used in creating the database tables in postgres.
     transaction_date DATE NOT NULL,
     source VARCHAR(50) NOT NULL
     );
+
+**Data Import**
+
+Data were added to each database table using insert command.
+
+**Business Questions & Solutions**
+
+The below questions are being raised and answered by writing Query to understand and make deceisions.
+
+__**1. Count the total number of customers who joined in 2023.**__
+
+    SELECT COUNT(DISTINCT customer_id) CustomersThatJoinedIn2023
+    FROM customers
+    WHERE EXTRACT(YEAR FROM customers.join_date) = 2023
+
+    ![alt text](images/Customers%20that%20joined%20in%202023.png)
+
+__**2. For each customer return customer_id, full_name, total_revenue (sum of total_amount from orders). Sort descending.**__
+
+    --For each customer return customer_id, full_name, 
+    --total_revenue (sum of total_amount from orders). Sort descending.
+
+    SELECT c.customer_id, c.full_name, SUM(o.total_amount) total_revenue
+    FROM customers AS c
+    LEFT JOIN orders AS o
+    ON c.customer_id = o.customer_id
+    GROUP BY c.customer_id, c.full_name
+    ORDER BY total_revenue desc
+
+    ![alt text](image.png)
 
