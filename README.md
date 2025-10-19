@@ -60,7 +60,7 @@ The following database tables were created using DDL command in Postgres PGAdmin
 
 Data were added to each database table using insert command.
 
-**Business Questions & Solutions**
+## Business Questions & Solutions
 
 The below questions are being raised and answered by writing Query to understand and make deceisions.
 
@@ -124,3 +124,9 @@ __**4. Produce a table with year, month, monthly_revenue for all months in 2023 
     ORDER BY order_year,month_number
 
 ![alt text](images/Monthly%20Revenue.png)
+
+
+### 5. Find customers with no orders in the last 60 days relative to 2023-12-31. Return customer_id, full_name, last_order_date.
+
+It is consider that the last active date in the dataset is 2023-12-31. Hence, the scriot would be detailing the customers that has no order in the last 60 days.
+
