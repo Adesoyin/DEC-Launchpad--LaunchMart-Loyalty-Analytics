@@ -16,10 +16,15 @@ The following database tables were created using DDL command in Postgres PGAdmin
 
 
       CREATE TABLE customers (
+
       customer_id SERIAL PRIMARY KEY,
+
       full_name VARCHAR(50) NOT NULL,
+
       email VARCHAR(50) UNIQUE,
+
       join_date DATE NOT NULL
+      
       );
     
       CREATE TABLE products (
