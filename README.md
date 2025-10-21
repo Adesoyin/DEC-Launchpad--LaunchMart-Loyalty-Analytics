@@ -130,3 +130,28 @@ __**4. Produce a table with year, month, monthly_revenue for all months in 2023 
 
 It is consider that the last active date in the dataset is 2023-12-31. Hence, the scriot would be detailing the customers that has no order in the last 60 days.
 
+    --Find customers with no orders in the last 60 days relative to 2023-12-31. 
+    --Return customer_id, full_name, last_order_date
+
+    WITH customerlastorderdate AS (
+                SELECT a.customer_id, a.full_name, MAX(b.order_date) last_order_date
+                FROM CUSTOMERS a
+                LEFT JOIN orders b
+                ON a.customer_id = b.customer_id
+                GROUP BY a.customer_id, a.full_name
+    ),
+    customersin6monthorder AS (
+                SELECT * 
+                FROM orders
+                WHERE order_date >= '2023-12-31'::date - INTERVAL '6 months'
+    )
+
+    SELECT * 
+    FROM customerlastorderdate AS a
+    WHERE NOT EXISTS (
+                SELECT order_id 
+                FROM customersin6monthorder 
+                WHERE customer_id = a.customer_id)
+    ORDER BY customer_id
+
+![alt text](image.png)
