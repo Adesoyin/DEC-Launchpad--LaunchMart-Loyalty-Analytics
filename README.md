@@ -152,7 +152,7 @@ It is consider that the last active date in the dataset is 2023-12-31. Hence, th
                 WHERE customer_id = a.customer_id)
     ORDER BY customer_id
 
-![alt text](ImageS/Customers%20with%20no%20order%20in%20last%2060%20days.png)
+![alt text](Images/Customers%20with%20no%20order%20in%20last%2060%20days.png)
 
 ### 6. Calculate average order value (AOV) for each customer: return customer_id, full_name, aov (average total_amount of their orders). Exclude customers with no orders.
 
